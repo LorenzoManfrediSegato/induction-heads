@@ -1,0 +1,23 @@
+[project]
+name = "induction-heads"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "Lorenzo Manfredi", email = "lorims@me.com" }
+]
+requires-python = ">=3.12"
+dependencies = [
+    "jupyter>=1.1.1",
+    "matplotlib>=3.11.2",
+    "numpy>=2.5.3",
+    "torch>=2.14.0",
+    "tqdm>=4.70.1",
+]
+
+[project.scripts]
+induction-heads = "induction_heads:main"
+
+[build-system]
+requires = ["uv_build>=0.12.17,<0.13.0"]
+build-backend = "uv_build"
