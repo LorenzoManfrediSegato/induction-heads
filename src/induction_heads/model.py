@@ -19,6 +19,9 @@ class Attention(nn.Module):
         self.d_head = cfg.d_head
         self.pattern = None
 
+        # ablations
+        self.ablated_heads = set()
+
     def forward(self, x):
         batch, seq = x.shape[:2]
         q = self.W_Q(x)
@@ -45,6 +48,13 @@ class Attention(nn.Module):
         self.pattern = pattern
 
         out = pattern @ v
+
+        if self.ablated_heads:
+            head_mask = torch.ones(self.n_heads, device=out.device) 
+            for h in self.ablated_heads:
+                head_mask[h] = 0
+            out = out * head_mask.view(1, self.n_heads, 1, 1)
+
 
         # merging heads back
         out = out.transpose(1, 2).reshape(batch, seq, self.cfg.d_model)
