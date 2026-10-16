@@ -30,23 +30,26 @@ def losses(tokens, L):
 
 layer0 = model.layers[0]
 
-def run(heads, mode="zero"):
-    layer0.ablated_heads = set(heads)
-    layer0.ablation_mode = mode
+def run(heads, mode="zero", layer=0):
+    attn = model.layers[layer]
+    attn.ablated_heads = set(heads)
+    attn.ablation_mode = mode
     try:
         return losses(tokens, L)
     finally:
-        layer0.ablated_heads = set()
-        layer0.ablation_mode = "zero"
+        attn.ablated_heads = set()
+        attn.ablation_mode = "zero"
 
 runs = [
-    ("baseline",                   [],           "zero"),
-    ("prev-token, mean",           [2, 3],       "mean"),
-    ("duplicate-token, mean",      [0, 1],       "mean"),
-    ("all layer 0, mean",          [0, 1, 2, 3], "mean"),
-    ("cleanup check",              [],           "zero"),
+    ("baseline",               [],           "zero", 0),
+    ("prev-token, mean",       [2, 3],       "mean", 0),
+    ("duplicate-token, mean",  [0, 1],       "mean", 0),
+    ("all layer 0, mean",      [0, 1, 2, 3], "mean", 0),
+    ("all layer 1, zero",      [0, 1, 2, 3], "zero", 1),
+    ("all layer 1, mean",      [0, 1, 2, 3], "mean", 1),
+    ("cleanup check",          [],           "zero", 0),
 ]
 
-for name, heads, mode in runs:
-    rep, first = run(heads, mode)
+for name, heads, mode, layer in runs:
+    rep, first = run(heads, mode, layer)
     print(f"{name:28s} repeated {rep:.3f}   first {first:.2f}")
