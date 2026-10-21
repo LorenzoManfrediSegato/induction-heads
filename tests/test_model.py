@@ -1,7 +1,7 @@
 """Sanity checks for the forward pass. Run from the repo root: uv run pytest
 
 These assume the model lives in src/induction_heads/model.py as:
-    class AttnOnlyTransformer(nn.Module):
+    class AttnOnlyAutobot(nn.Module):
         def __init__(self, cfg: Config): ...
         def forward(self, tokens):  # tokens [batch, n_ctx] -> logits [batch, n_ctx, vocab_size]
 with its attention layers in `self.layers`, each storing its softmax output as `.pattern`.

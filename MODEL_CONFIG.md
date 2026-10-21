@@ -29,7 +29,7 @@ Total: ~102k parameters — `W_E` (512 × 64 = 32,768) + `W_pos` (64 × 64 = 4,0
 | `batch_size` | **64** | Sequences per training step | Small and fast on a laptop GPU (Apple M5, MPS) |
 | `lr` | **1e-3** | Learning rate (how big each weight update is) | Standard for a model this size with Adam |
 | Optimizer | **AdamW**, `weight_decay` 0.01 | The update rule | Standard choice |
-| `n_steps` | **5,000** | Training steps | Induction heads typically form well before this |
+| `n_steps` | **20,000** | Training steps | Induction heads typically form well before this |
 | Data | **fresh random batch every step** | — | No fixed dataset, so the model can't memorise — it has to learn the general copying rule |
 
 ### What to expect
