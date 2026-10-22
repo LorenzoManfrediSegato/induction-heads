@@ -1,7 +1,7 @@
 [project]
 name = "induction-heads"
 version = "0.1.0"
-description = "Add your description here"
+description = "Finding and causally verifying induction heads in a 2-layer attention-only transformer"
 readme = "README.md"
 authors = [
     { name = "Lorenzo Manfredi", email = "lorims@me.com" }
@@ -14,9 +14,6 @@ dependencies = [
     "torch>=2.14.0",
     "tqdm>=4.70.1",
 ]
-
-[project.scripts]
-induction-heads = "induction_heads:main"
 
 [build-system]
 requires = ["uv_build>=0.12.17,<0.13.0"]

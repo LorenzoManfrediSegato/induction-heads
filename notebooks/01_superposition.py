@@ -12,9 +12,6 @@ Loss: importance-weighted squared reconstruction error.
 We train one model per sparsity level and plot where each feature ends up
 in the hidden space.
 
-    TODO(1)  ToyModel.__init__  -- create the parameters
-    TODO(2)  ToyModel.forward   -- the forward pass
-    TODO(3)  train              -- the training loop and loss
 """
 
 from pathlib import Path

@@ -4,7 +4,8 @@ from induction_heads.config import Config, get_device
 from induction_heads.data import make_repeated_batch, loss_by_half, sample_half_len
 from induction_heads.model import AttnOnlyAutobot
 from induction_heads.plotting import plot_attention_patterns, plot_loss_curves, get_attention_patterns
-
+from pathlib import Path
+Path("runs").mkdir(exist_ok=True)
 # setup
 cfg = Config(n_steps=20000)
 torch.manual_seed(cfg.seed)

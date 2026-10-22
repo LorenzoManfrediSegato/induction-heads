@@ -11,7 +11,6 @@ model = AttnOnlyAutobot(cfg).to(device)
 L = 20
 gen = torch.Generator().manual_seed(0)
 tokens = make_repeated_batch(cfg, batch_size=256, half_len=L, generator=gen, device=device)
-print(tokens.shape)
 
 state_dict = torch.load('runs/varlen_synthetic.pt', map_location=device)
 model.load_state_dict(state_dict)
@@ -27,8 +26,6 @@ def losses(tokens, L):
     first = F.cross_entropy(logits[:, :L-1].reshape(-1, V), tokens[:, 1:L].reshape(-1))
 
     return rep.item(), first.item()
-
-layer0 = model.layers[0]
 
 def run(heads, mode="zero", layer=0):
     attn = model.layers[layer]
@@ -47,7 +44,10 @@ runs = [
     ("all layer 0, mean",      [0, 1, 2, 3], "mean", 0),
     ("all layer 1, zero",      [0, 1, 2, 3], "zero", 1),
     ("all layer 1, mean",      [0, 1, 2, 3], "mean", 1),
-    ("cleanup check",          [],           "zero", 0),
+    ("cleanup check",          [],           "zero", 0),  
+    ("prev-token, zero",       [2, 3],       "zero", 0),
+    ("duplicate-token, zero",  [0, 1],       "zero", 0),
+    ("all layer 0, zero",      [0, 1, 2, 3], "zero", 0),
 ]
 
 for name, heads, mode, layer in runs:
